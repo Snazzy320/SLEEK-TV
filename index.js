@@ -6,6 +6,7 @@ const connectDatabase = require("./database/data-base-entries")
 const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require("./routes/adminRoutes.js")
 const mediaRoutes = require("./routes/mediaRoutes.js")
+const subscriptionRoutes = require("./routes/subscriptionRoutes.js")
 
 
 app = express()
@@ -32,6 +33,7 @@ app.get("/", (req,res)=>{
 app.use("/api", userRoutes)
 app.use("/admin", adminRoutes)
 app.use("/media",mediaRoutes)
+app.use("/subscription",subscriptionRoutes)
 
 
 app.use((req,res)=>{
