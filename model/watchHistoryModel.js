@@ -8,5 +8,5 @@ const watchHistorySchema = new mongoose.Schema({
     last_watched: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-const WatchHistory =new mongoose.model('WatchHistory', watchHistorySchema);
+const WatchHistory =new mongoose.model('Watch History', watchHistorySchema);
 module.exports = WatchHistory;

@@ -7,6 +7,7 @@ const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require("./routes/adminRoutes.js")
 const mediaRoutes = require("./routes/mediaRoutes.js")
 const subscriptionRoutes = require("./routes/subscriptionRoutes.js")
+const watchHistoryRoutes = require("./routes/watchHistoryRoutes.js")
 
 
 app = express()
@@ -34,6 +35,8 @@ app.use("/api", userRoutes)
 app.use("/admin", adminRoutes)
 app.use("/media",mediaRoutes)
 app.use("/subscription",subscriptionRoutes)
+app.use("/watchHistory",watchHistoryRoutes)
+
 
 
 app.use((req,res)=>{

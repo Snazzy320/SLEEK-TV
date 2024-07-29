@@ -35,6 +35,8 @@ const createMedia = async(req, res)=>{
         // // Save user details
         await newMedia.save()
 
+        
+
       return res.status(200).json({
         message: "successful",
         user: newMedia

@@ -9,7 +9,7 @@ const handleNewUserRegisteration = async(req, res)=>{
    
     try {
     
-        const { userName, email, password, phoneNumber } = req.body
+        const { userName, email, password, phoneNumber,  profile_picture } = req.body
 
          const alreadyExistingUserName = await usersEntries.findOne({userName})
 
@@ -43,11 +43,11 @@ const handleNewUserRegisteration = async(req, res)=>{
         // Set new password to be hashed password & create user model object
         
     
-        const newUser = new usersEntries({ userName, email, password: hashedPassword, phoneNumber })
+        const newUser = new usersEntries({ userName, email, password: hashedPassword, phoneNumber,  profile_picture })
     
     
     // // Save user details
-    //    await newUser.save()
+       await newUser.save()
 
 
     
