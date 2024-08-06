@@ -3,11 +3,13 @@ const dotenv = require("dotenv")
 dotenv.config()
 const cors = require("cors")
 const connectDatabase = require("./database/data-base-entries")
+const path = require('path')
 const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require("./routes/adminRoutes.js")
-const mediaRoutes = require("./routes/mediaRoutes.js")
 const subscriptionRoutes = require("./routes/subscriptionRoutes.js")
 const watchHistoryRoutes = require("./routes/watchHistoryRoutes.js")
+
+
 
 
 app = express()
@@ -27,15 +29,21 @@ app.listen(PORT, ()=>{
     console.log(`Server Sarted Running on ${PORT}`)
 })
 
-app.get("/", (req,res)=>{
-    return res.status(200).json({message: "Welcome To Our Streaming Service"})
-})
+// app.get("/", (req,res)=>{
+//     return res.status(200).json({message: "Welcome To Our SLEEK TV"})
+// })
 
 app.use("/api", userRoutes)
 app.use("/admin", adminRoutes)
-app.use("/media",mediaRoutes)
 app.use("/subscription",subscriptionRoutes)
 app.use("/watchHistory",watchHistoryRoutes)
+
+app.use('/api/content', require('./routes/content'));
+app.use('/api/profiles', require('./routes/profile'));
+app.use('/api/recommendations', require('./routes/recommendation'));
+app.use('/api/offline', require('./routes/offline'));
+
+
 
 
 

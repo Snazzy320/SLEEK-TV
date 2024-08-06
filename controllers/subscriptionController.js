@@ -1,4 +1,5 @@
-const subscription = require("../model/subscriptionModel")
+const subscription = require("../models/subscriptionModel")
+const usersEntries = require("../models/userModel")
 
 
 const addSubscription = async(req,res)=>{
@@ -27,6 +28,9 @@ const addSubscription = async(req,res)=>{
         const createSubscription = new subscription({ plan_type, start_date, end_date, payment_method, status, user: user.id })
 
         await createSubscription.save()
+
+        user.subscriptions = plan_type;
+        await user.save();
 
         return res.status(200).json ({
             message: "successful",

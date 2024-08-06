@@ -1,5 +1,5 @@
-const adminEntries = require("../model/adminModel")
-const usersEntries = require("../model/userModel")
+const adminEntries = require("../models/adminModel")
+const usersEntries = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const jsonwebtoken = require("jsonwebtoken")
 const { sendWelcomeEmail,sendResetPasswordEmail  } = require("../utilities/utilities")

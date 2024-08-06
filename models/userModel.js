@@ -15,14 +15,12 @@ const userSchema = new mongoose.Schema({
 
     profile_picture: { type: String },
 
-    subscriptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subscription' }],
+    profiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }],
 
-    watch_history: [{ type: mongoose.Schema.Types.ObjectId, ref: 'WatchHistory' }],
+    subscriptions: { type: String, ref: 'Subscription' },
 
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Media' }],
 
     role: {
-        type: String, required: true, enum: ['user', 'admin'], default: 'user' 
     }
 
 },{timestamps:true })

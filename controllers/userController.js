@@ -1,4 +1,4 @@
-const usersEntries = require("../model/userModel")
+const usersEntries = require("../models/userModel")
 const bcrypt = require("bcrypt")
 const jsonwebtoken = require("jsonwebtoken")
 const { sendWelcomeEmail,sendResetPasswordEmail  } = require("../utilities/utilities")
@@ -117,7 +117,7 @@ const handleNewUserRegisteration = async(req, res)=>{
             }
 
             const accessToken = await jsonwebtoken.sign(userPayload, process.env.ACCESS_TOKEN,
-                {expiresIn: "30m"})
+                {expiresIn: "60m"})
 
                 console.log({accessToken})
 
