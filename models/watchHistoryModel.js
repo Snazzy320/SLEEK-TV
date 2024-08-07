@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const watchHistorySchema = new mongoose.Schema({
     // user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    media_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Media', required: true },
+    content_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Content', required: true },
     watchedAt: { type: Date, default: Date.now },
     progress: { type: Number, default: 0 },
     user: {

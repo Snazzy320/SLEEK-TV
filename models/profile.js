@@ -8,6 +8,6 @@ const profileSchema = new mongoose.Schema({
     history: [{ content: { type: mongoose.Schema.Types.ObjectId, ref: 'Content' }, watchedAt: { type: Date, default: Date.now } }],
 });
 
-const Profile = mongoose.model('Profile', profileSchema);
+const Profile =new mongoose.model('Profile', profileSchema);
 
 module.exports = Profile;

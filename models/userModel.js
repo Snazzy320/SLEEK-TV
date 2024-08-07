@@ -13,8 +13,6 @@ const userSchema = new mongoose.Schema({
 
     phoneNumber:  { type: Number, required: true },
 
-    profile_picture: { type: String },
-
     profiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }],
 
     subscriptions: { type: String, ref: 'Subscription' },

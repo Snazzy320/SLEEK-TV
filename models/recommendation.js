@@ -6,6 +6,6 @@ const recommendationSchema = new mongoose.Schema({
     score: { type: Number, required: true },
 });
 
-const Recommendation = mongoose.model('Recommendation', recommendationSchema);
+const Recommendation =new mongoose.model('Recommendation', recommendationSchema);
 
 module.exports = Recommendation;
