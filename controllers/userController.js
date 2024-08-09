@@ -9,13 +9,8 @@ const handleNewUserRegisteration = async(req, res)=>{
    
     try {
     
-        const { userName, email, password, phoneNumber } = req.body
+        const { firstName, lastName, email, password} = req.body
 
-         const alreadyExistingUserName = await usersEntries.findOne({userName})
-
-        if(alreadyExistingUserName){
-            return res.status(400).json({message: "this username already exists!"})
-        }
 
     
         if(!email){
@@ -28,13 +23,6 @@ const handleNewUserRegisteration = async(req, res)=>{
         if(alreadyExistingUser){
             return res.status(400).json({message: "this user account already exists!"})
         }
-
-        const alreadyExistingPhoneNumber = await usersEntries.findOne({phoneNumber})
-
-        if(alreadyExistingPhoneNumber){
-            return res.status(400).json({message: "this phoneNumber already exists!"})
-        }
-
     
     
         // Hash password with bcrypt
@@ -43,7 +31,7 @@ const handleNewUserRegisteration = async(req, res)=>{
         // Set new password to be hashed password & create user model object
         
     
-        const newUser = new usersEntries({ userName, email, password: hashedPassword, phoneNumber })
+        const newUser = new usersEntries({ firstName, lastName, email, password: hashedPassword })
     
     
     // // Save user details
@@ -56,7 +44,7 @@ const handleNewUserRegisteration = async(req, res)=>{
 
     const emailSubject = "Welcome to Our Streaming Service"
 
-    const respond = await sendWelcomeEmail(userName, email, emailSubject)
+    const respond = await sendWelcomeEmail(firstName,lastName, email, emailSubject)
    
 
 
@@ -65,7 +53,7 @@ const handleNewUserRegisteration = async(req, res)=>{
     
         return res.status(200).json({
             message: "successfull",
-            user: { userName, email, phoneNumber }
+            user: { firstName, lastName, email }
             
         })
         
@@ -185,12 +173,12 @@ const handleNewUserRegisteration = async(req, res)=>{
 
         const user = req.user
 
-        const { fullName, userName, email, oldPassword, newPassword, phoneNumber } = req.body
+        const { firstName, lastName, email, oldPassword, newPassword, } = req.body
 
-        const alreadyExistingUserName = await usersEntries.findOne({userName})
+        const alreadyExistingUserName = await usersEntries.findOne({email})
 
         if(alreadyExistingUserName){
-            return res.status(400).json({message: "this username already exists!"})
+            return res.status(400).json({message: "this email already exists!"})
         }
 
         
@@ -198,12 +186,6 @@ const handleNewUserRegisteration = async(req, res)=>{
     
         if(alreadyExistingUser){
             return res.status(400).json({message: "this email address already exists!"})
-        }
-
-        const alreadyExistingPhoneNumber = await usersEntries.findOne({phoneNumber})
-
-        if(alreadyExistingPhoneNumber){
-            return res.status(400).json({message: "this phoneNumber already exists!"})
         }
 
 
@@ -228,7 +210,7 @@ const handleNewUserRegisteration = async(req, res)=>{
          
         const fullUpdate = await usersEntries.findByIdAndUpdate(
             user.id,
-            {fullName, userName, email, password:hashedNewPassword, phoneNumber},
+            { firstName, lastName, email, password:hashedNewPassword, phoneNumber},
             {new:true}
         )
         
@@ -308,6 +290,7 @@ const handleNewUserRegisteration = async(req, res)=>{
 
         return res.status(200).json({
             message: "check email to reset password"
+            
         })
 
             
@@ -318,37 +301,83 @@ const handleNewUserRegisteration = async(req, res)=>{
 
     }
 
-    const resetPassword = async(req,res)=>{
+    // const resetPassword = async(req,res)=>{
 
-        try {   
+    //     try {   
 
-            const { email, password} = req.body
+    //         const { email, password} = req.body
 
-            const user = await usersEntries.findOne({email})
+    //         const user = await usersEntries.findOne({email})
 
-            if(!user) {
+    //         if(!user) {
 
-                 return res.status(404).json({message: "user not found"})
-            }
+    //              return res.status(404).json({message: "user not found"})
+    //         }
 
-            const hashedPassword = await bcrypt.hash(password, 12)
+    //         const hashedPassword = await bcrypt.hash(password, 12)
 
-            user.password = hashedPassword
+    //         user.password = hashedPassword
 
-            await user.save()
+    //         await user.save()
 
-            return res.status(200).json({message: "successful", hashedPassword})
+    //         return res.status(200).json({message: "successful", hashedPassword})
 
            
 
             
-        } catch (error) {
+    //     } catch (error) {
 
-            return res.status(500).json({message: error.message})
+    //         return res.status(500).json({message: error.message})
             
-        } 
+    //     } 
 
+    // }
+
+    const resetPassword = async (req, res) => {
+        try {   
+
+            const user = req.user
+
+            const { newPassword, confirmPassword } = req.body;
+
+            if (!newPassword){
+                return res.status(400).json({ message: "insert new password" });
+
+            }
+
+            if (!confirmPassword) {
+                return res.status(400).json({ message: "insert confirm password" });
+            }
+    
+            // Check if the new passwords match
+            if (newPassword !== confirmPassword) {
+                return res.status(400).json({ message: "Passwords do not match" });
+            }
+    
+            // Find the user by user.id
+            const oneUser = await usersEntries.find({ user: user.id });
+    
+            // If user not found, return a 404 status
+            if (!oneUser) {
+                return res.status(404).json({ message: "User not found" });
+            }
+    
+            // Hash the new password
+            const hashedPassword = await bcrypt.hash(newPassword, 12);
+    
+            // Update the user's password
+            user.password = hashedPassword;
+    
+            // Save the updated user
+            await user.save();
+    
+            // Return a success response
+            return res.status(200).json({ message: "Password reset successful" });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        } 
     }
+    
 
     const disableUserWalletAccount = async(req, res)=>{
 
