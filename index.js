@@ -29,9 +29,9 @@ app.listen(PORT, ()=>{
     console.log(`Server Sarted Running on ${PORT}`)
 })
 
-// app.get("/", (req,res)=>{
-//     return res.status(200).json({message: "Welcome To Our SLEEK TV"})
-// })
+app.get("/", (req,res)=>{
+    return res.status(200).json({message: "Welcome To SLEEK TV"})
+})
 
 app.use("/api", userRoutes)
 app.use("/admin", adminRoutes)
