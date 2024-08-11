@@ -42,9 +42,9 @@ const handleNewUserRegisteration = async(req, res)=>{
     // send user an email
     // send Email
 
-    const emailSubject = "Welcome to Our Streaming Service"
+    const emailSubject = "Welcome to SLEEK TV"
 
-    const respond = await sendWelcomeEmail(firstName,lastName, email, emailSubject)
+    const respond = await sendWelcomeEmail(firstName, email, emailSubject)
    
 
 
@@ -53,7 +53,8 @@ const handleNewUserRegisteration = async(req, res)=>{
     
         return res.status(200).json({
             message: "successfull",
-            user: { firstName, lastName, email }
+            user: { firstName, lastName, email },
+            // respond
             
         })
         
@@ -289,7 +290,8 @@ const handleNewUserRegisteration = async(req, res)=>{
 
 
         return res.status(200).json({
-            message: "check email to reset password"
+            message: "check email to reset password",
+            // user: response
             
         })
 

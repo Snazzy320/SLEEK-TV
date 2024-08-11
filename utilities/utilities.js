@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer")
 
-const sendWelcomeEmail = async ( fullName, userEmail, emailSubject, url ) =>{
+const sendWelcomeEmail = async ( firstName, userEmail, emailSubject, url ) =>{
     try {
 
         // create Transport
@@ -75,7 +75,7 @@ const sendWelcomeEmail = async ( fullName, userEmail, emailSubject, url ) =>{
             <h1>Welcome to Our Service!</h1>
         </div>
         <div class="content">
-            <h2>Hi  ${fullName},</h2>
+            <h2>Hi  ${firstName},</h2>
             <p>Thank you for registering with us. We are thrilled to have you on board. Here are some quick tips to get you started:</p>
             <ul>
                 <li>Explore our features and see what we have to offer.</li>
@@ -86,10 +86,10 @@ const sendWelcomeEmail = async ( fullName, userEmail, emailSubject, url ) =>{
             <p>Click the button below to get started:</p>
             <p><a href=${url} class="button">Get Started</a></p>
             <p>We hope you enjoy your experience with us!</p>
-            <p>Best regards,<br>The Wallet Management System Team</p>
+            <p>Best regards,<br>SLEEK TV Team</p>
         </div>
         <div class="footer">
-            <p>&copy; 2024 Wallet Management System. All rights reserved.</p>
+            <p>&copy; 2024 SLEEK TV. All rights reserved.</p>
             <p>If you did not register for this account, please disregard this email.</p>
         </div>
     </div>
@@ -193,10 +193,10 @@ const sendResetPasswordEmail = async ( userEmail, emailSubject,  Url )=>{
                 <p>We received a request to reset your password. Click the button below to reset your password:</p>
                 <p><a href=${ Url} class="button">Reset Password</a></p>
                 <p>If you did not request a password reset, please ignore this email. This link will expire in 1 hour.</p>
-                <p>Best regards,<br>The Wallet Management System Team</p>
+                <p>Best regards,<br>SLEEK TV Team</p>
             </div>
             <div class="footer">
-                <p>&copy; 2024 Wallet Management System. All rights reserved.</p>
+                <p>&copy; 2024 SLLEK TV. All rights reserved.</p>
             </div>
         </div>
     </body>
