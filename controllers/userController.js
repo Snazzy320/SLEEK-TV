@@ -279,7 +279,7 @@ const handleNewUserRegisteration = async(req, res)=>{
         const accessToken = await jsonwebtoken.sign(userPayload, process.env.ACCESS_TOKEN,
             {expiresIn: "30m"})
 
-        const Url= `www.wallet.com/${accessToken}` 
+        const Url= `sleektv/${accessToken}` 
         
         // Send Email
 
